@@ -17,36 +17,12 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 });
 
 const db = mongoose.connection;
-db.on('open', () => console.log("connected to mongo"));
+db.once('open', () => console.log("connected to mongo"));
+db.on('error', console.error.bind(console, 'connection error:'));
 
-let workoutSeed = [
-  {
-    day: new Date().setDate(new Date().getDate()-10),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Bicep Curl",
-        duration: 20,
-        weight: 100,
-        reps: 10,
-        sets: 4
-      }
-    ]
-  },
-  
-];
+require('./routes/apiRoutes')(app);
+require('./routes/htmlRoutes')(app);
 
-
-app.use(require("./routes/apiRoutes.js"));
-app.use(require("./routes/htmlRoutes.js"));
-
-Workout.create(workoutSeed)
-  .then(workout => {
-    console.log(workout);
-  })
-  .catch(({ message }) => {
-    console.log(message);
-  });
-  app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
