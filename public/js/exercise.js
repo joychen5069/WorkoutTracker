@@ -145,6 +145,7 @@ if (completeButton) {
     console.log("COMPLETE BUTTON CLICKED")
     shouldNavigateAway = true;
     handleFormSubmit(event);
+    workout = API.createWorkout();
   });
 }
 if (addButton) {
