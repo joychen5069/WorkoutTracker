@@ -3,30 +3,26 @@ const API = {
     let res;
     try {
       res = await fetch("/api/workouts");
-      console.log(res);
-      // return res
     } catch (err) {
       console.log(err)
     }
     const json = await res.json();
-    console.log(json[0].exercises);
-    return json;
-  },
 
+    return json[json.length - 1];
+  },
   async addExercise(data) {
     const id = location.search.split("=")[1];
-    console.log("data", data)
-    const res = await fetch("/api/workouts/", {
+
+    const res = await fetch("/api/workouts/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    const json = await res.json(data);
+    const json = await res.json();
 
     return json;
   },
-
   async createWorkout(data = {}) {
     const res = await fetch("/api/workouts", {
       method: "POST",
@@ -44,5 +40,5 @@ const API = {
     const json = await res.json();
 
     return json;
-  },
-};
+  }
+}

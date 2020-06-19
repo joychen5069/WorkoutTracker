@@ -2,9 +2,9 @@ const db = require("../models/workouts");
 
 module.exports = (app) => {
 
-    app.get("/", (req, res) => {
-        res.send(index.html);
-    });
+    // app.get("/", (req, res) => {
+    //     res.send(index.html);
+    // });
 
     app.get("/api/workouts", (req, res) => {
         db.find({}).then((data) => {
@@ -19,9 +19,12 @@ module.exports = (app) => {
     });
 
     app.put("/api/workouts/:id", (req, res) => {
-        db.Workout.updateOne(
+        db.updateOne(
             { _id: req.params.id },
             { workouts: [req.body] })
+            .catch((err) => {
+                console.log(err)
+            })
             .then((updatedData) => {
                 res.json(updatedData);
             });
