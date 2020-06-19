@@ -149,8 +149,8 @@ let workoutSeed = [
 ];
 
 
-require('./routes/apiRoutes')(app);
-require('./routes/htmlRoutes')(app);
+app.use(require("./routes/apiRoutes.js"));
+app.use(require("./routes/htmlRoutes.js"));
 
 Workout.create(workoutSeed)
   .then(workout => {
