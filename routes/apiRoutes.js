@@ -7,9 +7,9 @@ module.exports = (app) => {
     //pull last workout if applicable
     app.get('/api/workouts', (req, res) => {
         workoutData.find({}).sort({ day: -1 })
-            .then((err, post) => {
+            .find((err, post) => {
                 console.log("get route")
-                console.log(post);
+                console.log(post[0]);
                 res.json(post)
             })
 
