@@ -1,43 +1,43 @@
-const db = require("../models/workouts");
+const db = require("../models/index");
 
+ 
 module.exports = (app) => {
 
-    // app.get("/", (req, res) => {
-    //     res.send(index.html);
-    // });
+    //render index
+    app.get("/", (req, res) => {
+        res.send(index.html);
+    });
 
+    //pull list of workouts
     app.get("/api/workouts", (req, res) => {
-        db.find({}).then((data) => {
+        db.Workout.find({}).then((data) => {
             res.json(data);
         });
     });
 
+    //pull workouts from dates
     app.get("/api/workouts/range", (req, res) => {
         db.Workout.find({}).then((data) => {
             res.json(data);
         });
     });
 
+    //add exercises to workout
     app.put("/api/workouts/:id", (req, res) => {
-        db.updateOne(
-            { _id: req.params.id },
-            { workouts: [req.body] })
-            .catch((err) => {
-                console.log(err)
-            })
-            .then((updatedData) => {
-                res.json(updatedData);
-            });
-    });
+        db.Workout.updateOne({ _id: req.params.id }, {exercises: [req.body]}).then(function(updatedData) {
+            res.json(updatedData);
+          });
+      });
 
-    app.post("/api/exercises", (req, res) => {
+      //add workout
+      app.post("/api/workouts", (req, res) => {
         db.Workout.create(req.body)
-            .then(newdata => {
-                console.log(newdata + "post newdata ");
-                res.json(newdata);
-            })
-            .catch(({ message }) => {
-                console.log(message);
-            });
-    });
+        .then(data => {
+            console.log(data + "post data ");
+            res.json(data);
+          })
+          .catch(({ error }) => {
+            console.log(error);
+          });
+      });
 };
