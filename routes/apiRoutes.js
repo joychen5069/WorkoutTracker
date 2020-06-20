@@ -1,6 +1,6 @@
 const db = require("../models/index");
 
- 
+
 module.exports = (app) => {
 
     //render index
@@ -24,20 +24,20 @@ module.exports = (app) => {
 
     //add exercises to workout
     app.put("/api/workouts/:id", (req, res) => {
-        db.Workout.updateOne({ _id: req.params.id }, {exercises: [req.body]}).then(function(updatedData) {
+        db.Workout.updateOne({ _id: req.params.id }, { exercises: [req.body] }).then(function (updatedData) {
             res.json(updatedData);
-          });
-      });
+        });
+    });
 
-      //add workout
-      app.post("/api/workouts", (req, res) => {
+    //add workout
+    app.post("/api/workouts", (req, res) => {
         db.Workout.create(req.body)
-        .then(data => {
-            console.log(data + "post data ");
-            res.json(data);
-          })
-          .catch(({ error }) => {
-            console.log(error);
-          });
-      });
+            .then(data => {
+                console.log(data + "post data ");
+                res.json(data);
+            })
+            .catch(({ error }) => {
+                console.log(error);
+            });
+    });
 };

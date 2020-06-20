@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
-const path = require('path');
 const express = require("express");
 
 const app = express();
+
+const workout = require("./models/workouts.js");
+const path = require('path');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -11,14 +13,12 @@ app.use(express.static('public'));
 
 const PORT = process.env.PORT || 3000;
 
-const workout = require("./models/workouts.js");
-
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("database connected");
+  console.log("mongoose connected");
 });
 
 require("./routes/apiRoutes")(app);
