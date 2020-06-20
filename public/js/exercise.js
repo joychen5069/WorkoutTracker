@@ -28,7 +28,7 @@ async function initExercise() {
     location.search = "?id=" + workout._id;
   }
 
-}
+};
 
 initExercise();
 
@@ -142,10 +142,8 @@ if (workoutTypeSelect) {
 }
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
-    console.log("COMPLETE BUTTON CLICKED")
     shouldNavigateAway = true;
     handleFormSubmit(event);
-    // workout = API.createWorkout();
   });
 }
 if (addButton) {
